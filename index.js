@@ -1,10 +1,26 @@
-const http = require('http')
-const port = 5000
+const express = require('express')
+const app = express ()
+const port = process.env.PORT || 5000
 
-const server = http.createServer((req,res) => {
-    res.end('hola alumnos')
+// app.use(express.static(__dirname + '/public'))
+
+//Motor de plantillas o vistas
+app.set('view engine','ejs')
+app.set('views', __dirname + '/views')
+
+app.get('/', (req, res) => {
+    res.render('index',{
+        titulo: 'Index con EJS',
+        
+    
+    })
 })
 
-server.listen(port, () => {
-    console.log('Arranca el servidor')
+app.get('lenguajes', (req, res) => {
+    res.sendFile (__dirtname + '/public/index.html')
+})
+
+
+app.listen(port, () => {
+    console.log(`Arranca el servidor ${port}`)
 })
